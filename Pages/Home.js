@@ -6,7 +6,7 @@ import Loogo from '../Components/Logo';
 import login from '../Pages/Login';
 var currentHour= new Date().getHours();
 
-export default class Home extends React.Component {
+class Home extends React.Component {
       static navigationOptions = {
         headerStyle: {
           backgroundColor: '#00838f',
@@ -18,7 +18,17 @@ export default class Home extends React.Component {
         width:300,
         },
       };
+      constructor(props){
+        super(props)
+        this.state = {
+          userInfo : null
+        }
+      }
     render() {
+     
+      const { navigation } = this.props;
+      {!this.state.userInfo ? (<Button title="Login with Facebook"  onPress={() => this.props.navigation.navigate('Login')}/>): (this._rednderUserInfo())}
+      const userInfo = navigation.getParam('userInfo', 'Not Logged In!');
       let displayTime;
       if(currentHour<12){
         displayTime="Good Morning,";
@@ -37,7 +47,7 @@ export default class Home extends React.Component {
        
         <View style={{ flex: 1,flexDirection: 'row',backgroundColor: '#00838f' }}>
           <Text>{displayTime} Itay</Text>
-          <Text style={styles.signupButton}>Home</Text>
+         <Text style={styles.signupButton}>Home</Text>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
           <Text style={styles.signupButton}>Login</Text>
           </TouchableOpacity>
@@ -47,7 +57,17 @@ export default class Home extends React.Component {
     }
   }
 }
-  
+_rednderUserInfo = () => {
+  return(
+    <View style={{alignItems: 'center'}}>
+      <Image 
+        source = {{uri: this.state.userInfo.picture.data.url}}
+        style = {{width:100 , height:100,borderRadius:50}}/>
+        <Text style={{fontSize:20}}>{this.state.userInfo.name}</Text>
+        <Text style={{fontSize:20}}>ID:{this.state.userInfo.id}</Text>
+    </View>
+  )
+}
 
   const styles = StyleSheet.create({
     signupButton: {
@@ -61,7 +81,6 @@ export default class Home extends React.Component {
     }
   });
 
-
   
  
-  
+export default Home;

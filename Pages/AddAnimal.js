@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, TouchableOpacity, TextInput } from 'react-native';
-import  {createStackNavigator}  from 'react-navigation';
+import { StyleSheet, Text, View, StatusBar, TouchableOpacity, TextInput,Picker } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 import Logo from '../Components/Logo';
 import Form from '../Components/Form';
 import SignupForm from '../Components/SignupForm'
@@ -10,26 +10,23 @@ import axios from 'axios'
 
 
 
-export default class Signup extends React.Component {
+export default class AddAnimal extends React.Component {
     static navigationOptions = {
         headerStyle: {
             backgroundColor: '#00838f',
         },
-        title: "Sign Up",
+        title: "Add New Animal",
         headerTintColor: '#ffffff',
         headerTitleStyle: {
             fontWeight: 'bold',
-            width: 300,
+            width: 1000,
         },
     };
     constructor(props) {
         super(props)
         this.state = {
-            fullname: ' ',
-            password: ' ',
-            email:' ',
-            logged: undefined,
-            userInfo: null
+            name: ' ',
+            time: ' '
         }
     }
     render() {
@@ -46,44 +43,36 @@ export default class Signup extends React.Component {
             }}>
                 <Logo />
                 <TextInput style={styles.inputBox}
-                    placeholder="Email"
+                    placeholder="Name"
                     placeholderTextColor="#ffffff"
                     selectionColor="#fff"
-                    keyboardType="email-address"
-                    onSubmitEditing={() => this.password.focus()}
-                    onChangeText={(text) => { this.setState({ email: text }) }}
+                    onChangeText={(text) => { this.setState({ name: text }) }}
                 />
+
+                <Picker
+                selectedValue={this.state.time}
+                style={{ height: 50, width: 100 }}
+                onValueChange={(itemValue, itemIndex) => this.setState({time: itemValue})}>
+                <Picker.Item label="Java" value="java" />
+                <Picker.Item label="JavaScript" value="js" />
+                </Picker>
                 <TextInput style={styles.inputBox}
                     underlineColorAndroid='rgba(0,0,0,0)'
-                    placeholder="Full Name"
+                    placeholder="Feeding Time"
                     placeholderTextColor="#ffffff"
-                    ref={(input) => this.password = input}
-                    onChangeText={(text) => { this.setState({ fullname: text }) }}
+                    onChangeText={(text) => { this.setState({ time: text }) }}
                 />
-                <TextInput style={styles.inputBox}
-                    underlineColorAndroid='rgba(0,0,0,0)'
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    placeholderTextColor="#ffffff"
-                    ref={(input) => this.password = input}
-                    onChangeText={(text) => { this.setState({ password: text }) }}
-                />
-                <TouchableOpacity style={styles.button} onPress={this.signUp.bind(this)}>
+                <TouchableOpacity style={styles.button} onPress={this.add.bind(this)}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
         )
-
-
     }
-
-    signUp() {
+    add() {
         this.setState({ logged: false })
-        axios.post('https://autofeeder.herokuapp.com/signup', {
-            email:this.state.email,
-            password: this.state.password,
-            Fullname: this.state.fullname,
-
+        axios.post('https://autofeeder.herokuapp.com/signupAnimal', {
+            name: this.state.name,
+            time: this.state.time,
         }
         ).then((data) => {
             alert("Registerd")
@@ -93,7 +82,6 @@ export default class Signup extends React.Component {
             alert(error)
         })
     }
-
 }
 
 
