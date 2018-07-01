@@ -15,6 +15,7 @@ export default class Settings extends Component {
 
   _handleTimePicked = (time) => {
     console.log('A time has been picked: ', time);
+    alert("Time Changed")
     this._hideDateTimePicker();
   };
   static navigationOptions = {
@@ -33,9 +34,12 @@ export default class Settings extends Component {
     
     return (
       <View style={styles.container}>
+        <Text style={styles.headerText}>Choose your feeding time!!</Text>
+        <View style={styles.button}>
         <TouchableOpacity onPress={this._showDateTimePicker}>
-          <Text>Show DatePicker</Text>
+          <Text style={styles.buttonText}>Press Here</Text>
         </TouchableOpacity>
+        </View>
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           onConfirm={this._handleTimePicked}
@@ -53,7 +57,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#00838f',
     flex: 1,
     alignItems:'center',
-    justifyContent:'center'
+    justifyContent:'flex-start'
+  },
+  button: {
+    width:500,
+    flex:1,
+     borderRadius: 25,
+      marginVertical: 10,
+      paddingVertical: 13,
+      justifyContent:'space-around'
+
+  },
+
+  buttonText: {
+    fontSize:16,
+    fontWeight:'500',
+    color:'#ffffff',
+    textAlign:'center',
+    width:500
+  },
+  headerText:{
+    fontSize:28,
+    alignItems:'flex-start',
+    justifyContent:'flex-start'
   }
 });
 

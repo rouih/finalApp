@@ -48,14 +48,6 @@ export default class AddAnimal extends React.Component {
                     selectionColor="#fff"
                     onChangeText={(text) => { this.setState({ name: text }) }}
                 />
-
-                <Picker
-                selectedValue={this.state.time}
-                style={{ height: 50, width: 100 }}
-                onValueChange={(itemValue, itemIndex) => this.setState({time: itemValue})}>
-                <Picker.Item label="Java" value="java" />
-                <Picker.Item label="JavaScript" value="js" />
-                </Picker>
                 <TextInput style={styles.inputBox}
                     underlineColorAndroid='rgba(0,0,0,0)'
                     placeholder="Feeding Time"
@@ -63,7 +55,7 @@ export default class AddAnimal extends React.Component {
                     onChangeText={(text) => { this.setState({ time: text }) }}
                 />
                 <TouchableOpacity style={styles.button} onPress={this.add.bind(this)}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
+                    <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
             </View>
         )

@@ -54,7 +54,7 @@ export default class UserProfile extends React.Component {
       }}>
       <Logo/>
        <Text>{this.state.logged}</Text>
-        <Text style={{ fontSize: 32 }}>{displayTime}</Text>
+        <Text style={{ fontSize: 22 }}>{displayTime}</Text>
         <View>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
           <Text style={styles.signupButton}>Login</Text>

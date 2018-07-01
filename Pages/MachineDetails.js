@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Image, Button, View, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image, Button, View, Text, Picker } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 import logodes from '../Components/Logo';
@@ -18,6 +18,14 @@ export default class MachineDetails extends React.Component {
       width: 1000
     },
   };
+  constructor(props) {
+    super(props)
+    this.state = {
+      userInfo: null,
+      logged: false,
+      machine: ' '
+    }
+  }
   render() {
     return (
       <View style={{
@@ -33,25 +41,32 @@ export default class MachineDetails extends React.Component {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
+
           <Logo style={{
-            flex:'2'
-          }}/>
+            flex: '2'
+          }} />
 
-
+          <Picker
+            selectedValue={this.state.machine}
+            style={{ height: 50, width: 200 }}
+            onValueChange={(itemValue, itemIndex) => this.setState({ machine: itemValue })}>
+            <Picker.Item label="Machine1" value="Machine 1" />
+          </Picker>
           <Text style={{
             color: 'blue',
             fontSize: 22,
             fontWeight: '500',
             width: 300,
-       
+
           }}>Your machine state:Online</Text>
+
           <Text style={{
             color: 'red',
             fontSize: 28,
             fontWeight: '800',
             width: 300,
-        
-          }}>Tank:Half-Full</Text>
+
+          }}>Tank:Empty</Text>
         </View>
       </View>
 
